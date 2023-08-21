@@ -23,7 +23,7 @@ function Tab({ tab, isFilterTab, isActive, handleClick }) {
         isFilterTab ? "rounded-full glassmorphism" : "rounded-4"
       }`}
       onClick={handleClick}
-      style={{ ...activeStyles }}
+      style={activeStyles}
     >
       <img
         src={tab.icon}
