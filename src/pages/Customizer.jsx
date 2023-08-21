@@ -35,9 +35,16 @@ function Customizer() {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
-        return <FilePicker file={file} setFile={setFile} readFile={readFile}/>;
+        return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
       case "aipicker":
-        return <AIPicker />;
+        return (
+          <AIPicker
+            prompt={prompt}
+            setPrompt={setPrompt}
+            generatingImg={generatingImg}
+            handleSubmit={handleSubmit}
+          />
+        );
       default:
         return null;
     }
@@ -62,10 +69,19 @@ function Customizer() {
         state.isFullTexture = !activeFilterTab[tabName];
         break;
       default:
-        state.isFullTexture = false;
         state.isLogoTexture = true;
+        state.isFullTexture = false;
         break;
     }
+
+    // after setting the state, activeFilterTab is updated
+
+    setActiveFilterTab((prevState) => {
+      return {
+        ...prevState,
+        [tabName]: !prevState[tabName],
+      };
+    });
   };
 
   const readFile = (type) => {
@@ -91,7 +107,11 @@ function Customizer() {
                     key={tab.name}
                     tab={tab}
                     handleClick={() => {
-                      setActiveEditorTab(tab.name);
+                      if (tab.name === activeEditorTab) {
+                        setActiveEditorTab("");
+                      } else {
+                        setActiveEditorTab(tab.name);
+                      }
                     }}
                   />
                 ))}
@@ -120,7 +140,7 @@ function Customizer() {
               <Tab
                 key={tab.name}
                 tab={tab}
-                isFilterTab
+                isFilterTab={true}
                 isActiveTab={activeFilterTab[tab.name]}
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />

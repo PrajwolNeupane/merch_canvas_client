@@ -9,7 +9,7 @@ function Tab({ tab, isFilterTab, isActiveTab, handleClick }) {
     isFilterTab && isActiveTab
       ? {
           backgroundColor: snap.color,
-          opacity: 0.5,
+          opacity: 1,
         }
       : {
           backgroundColor: "transparent",
