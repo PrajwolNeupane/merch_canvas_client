@@ -2,11 +2,11 @@ import React from "react";
 import { useSnapshot } from "valtio";
 import state from "../store";
 
-function Tab({ tab, isFilterTab, isActive, handleClick }) {
+function Tab({ tab, isFilterTab, isActiveTab, handleClick }) {
   const snap = useSnapshot(state);
 
   const activeStyles =
-    isFilterTab && isActive
+    isFilterTab && isActiveTab
       ? {
           backgroundColor: snap.color,
           opacity: 0.5,
