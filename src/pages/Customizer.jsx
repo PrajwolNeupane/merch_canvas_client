@@ -55,7 +55,7 @@ function Customizer() {
     try {
       setGeneratingImg(true);
       const response = await fetch(config.development.backendUrl,{
-        //TODO
+        //TODO Ok
       })
     } catch (e) {
       console.log(e);
