@@ -19,6 +19,7 @@ function Customizer() {
   const snap = useSnapshot(state);
 
   const [file, setFile] = useState("");
+  const [scale, setScale] = useState(1);
 
   const [prompt, setPrompt] = useState("");
 
@@ -30,13 +31,16 @@ function Customizer() {
     stylishShirt: false,
   });
 
+  useEffect(() => {
+    state.scale = scale;
+  }, [scale]);
+
   const generateTabContent = () => {
     switch (activeEditorTab) {
       case "colorpicker":
         return <ColorPicker />;
       case "filepicker":
         return <FilePicker file={file} setFile={setFile} readFile={readFile} />;
-      case "aipicker":
         return (
           <AIPicker
             prompt={prompt}
@@ -47,21 +51,6 @@ function Customizer() {
         );
       default:
         return null;
-    }
-  };
-
-  const handleSubmit = async (type) => {
-    if (!prompt) return alert("Please enter a prompt");
-    try {
-      setGeneratingImg(true);
-      const response = await fetch(config.development.backendUrl,{
-        //TODO Ok
-      })
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setGeneratingImg(false);
-      setActiveEditorTab("");
     }
   };
 
@@ -160,6 +149,21 @@ function Customizer() {
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
+            <input
+              type="range"
+              id="volume"
+              name="volume"
+              min={0.5}
+              max={1.5}
+              step={0.05}
+              value={scale}
+              list="tickmarks"
+              onChange={(e) => {
+                setScale(e.target.value);
+              }}
+              className="w-[200px]"
+            />
+            <p>{scale}</p>
           </motion.div>
         </>
       )}

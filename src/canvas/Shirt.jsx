@@ -21,8 +21,7 @@ const Shirt = () => {
 
   const aspectRatio = logoTexture.image.width / logoTexture.image.height;
 
-  const logoScale = 0.2;
-  const logoScaleX = logoScale * aspectRatio;
+  const logoScaleX = (state.scale / 5) * aspectRatio;
 
   return (
     <group key={stateString}>
@@ -44,9 +43,9 @@ const Shirt = () => {
 
         {snap.isLogoTexture && (
           <Decal
-            position={[0, 0.04, 0.15]}
+            position={[0, 0, 0]}
             rotation={[0, 0, 0]}
-            scale={[logoScaleX, logoScale, 1]}
+            scale={[logoScaleX, state.scale /5, 1]}
             map={logoTexture}
             depthTest={false}
             depthWrite={true}
